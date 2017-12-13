@@ -4,7 +4,7 @@ const db = require('../service/db')
 module.exports = (router) => {
     router.post('/task', KoaBody(), async (ctx) => {
         let data = ctx.request.body
-        console.log('data', data);
+        // ctx.body = data; return
         ctx.body = await db.createTask(data)
     })
 

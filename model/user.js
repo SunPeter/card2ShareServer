@@ -37,6 +37,10 @@ var UserSchema = new Schema({
     },
     phone: {
         type: String
+    },
+    coin: {
+        type: Number,
+        default: 10
     }
 });
 

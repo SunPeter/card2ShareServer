@@ -11,30 +11,24 @@ var TaskSchema = new Schema({
         required: true
     },
     type: {
-        type: Number,  // 1 快递； 2 外卖or食物; 3 超市 or 便利店日常用品
+        type: Number,  // 0 快递；1 外卖or食物; 2 超市 or 便利店日常用品
         required: true
     },
-    estimated_time: {
-        type: Number,  // 接受的时间范围 单位 分钟
-        default: 20
+    expire: {
+        type: Number  // 接受的时间范围 单位 分钟
     },
-    reward: {
+    coin: {
         type: Number  // 奖励
     },
-    coreInfo: {
-        type: String
+    origin: {
+        type: Schema.ObjectId,
+        required: true,
+        ref: 'Pois'
     },
-    lat: {
-        type: Number,
-        required: true
-    },
-    lng: {
-        type: Number,
-        required: true
-    },
-    location: {
-        type: String,
-        required: true
+    destination: {
+        type: Schema.ObjectId,
+        required: true,
+        ref: 'Pois'
     },
     createTime: {
         type: Date,

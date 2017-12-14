@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "NODE_ENV=dev supervisor server"
+    "dev": "NODE_ENV=dev supervisor server",
+    "start": "./node_modules/.bin/pm2 startOrGracefulReload pm2.json"
   },
   "keywords": [],
   "author": "",
@@ -15,6 +16,7 @@
     "koa-body": "^2.5.0",
     "koa-router": "^7.2.1",
     "mongoose": "^4.13.6",
-    "node-fetch": "^1.7.3"
+    "node-fetch": "^1.7.3",
+    "pm2": "^2.9.0"
   }
 }

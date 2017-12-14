@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const Users = require('./user')
 
 var TaskSchema = new Schema({
     title: {
@@ -42,7 +43,29 @@ var TaskSchema = new Schema({
     helper: {
         type: Schema.ObjectId,
         ref: 'Users'
+    },
+    location: {
+        type: Array,
+        required: true
     }
 });
+
+TaskSchema.statics.findByGPS = async function (query) {
+    let latitude = parseFloat(query.lat), longitude = parseFloat(query.lng), limit = query.limit || 20
+    let point = {type: "Point", coordinates: [longitude, latitude]}
+
+    return await this.aggregate().near({
+        near: point,
+        spherical: true,
+        distanceField: 'distance',
+        maxDistance: query.maxDistance || 30*1000,
+        spherical : true
+    })
+    // .then(docs => {
+    //     return this.populate(docs, {path: "publisher origin destination"})
+    // })
+}
+
+TaskSchema.index({"location": "2dsphere"})
 
 module.exports = mongoose.model('Tasks', TaskSchema);

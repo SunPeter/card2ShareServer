@@ -3,21 +3,31 @@ const db = require('../service/db'), wx = require('../service/wechat')
 
 module.exports = (router) => {
     router.post('/user/sign', KoaBody(), async (ctx) => {
-        let data = ctx.request.body
-        ctx.body = await db.sign(data)
+        let form = ctx.request.body
+        console.log('sign user', form)
+
+        ctx.body = await db.sign(form)
     })
 
     router.get('/user/login', async (ctx) => {
         let query = ctx.query
             
         let userInfo = await wx.getOpenId(query)
-        console.log('userInfo', userInfo)
-        if (!userInfo) return
-        let openid = userInfo.openid
-        console.log(openid)
 
-        let res = await db.getUserInfo({openid})
-        ctx.body = res
+        if (!userInfo) {
+            ctx.body = {
+                hasLogin: false
+            }
+            return
+        }
+
+        let openid = userInfo.openid, res = await db.getUserInfo({openid})
+        console.log('checkUser in db', res)
+        if (res) {
+            ctx.body = Object.assign({hasLogin: true}, res)
+        } else {
+            ctx.body = Object.assign({hasLogin: false}, userInfo)
+        }
     })
 
     router.get('/user', async (ctx) => {

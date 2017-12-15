@@ -63,7 +63,7 @@ TaskSchema.statics.findByGPS = async function (query) {
         near: point,
         spherical: true,
         distanceField: 'distance',
-        maxDistance: query.maxDistance || 3*1000,
+        maxDistance: query.maxDistance || 3000*1000,
         spherical : true
     })
     // .then(docs => {

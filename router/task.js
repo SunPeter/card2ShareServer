@@ -25,9 +25,11 @@ module.exports = (router) => {
 
     router.put('/task/:id', KoaBody(), async (ctx) => {
         let id = ctx.params.id, data = ctx.request.body
-        let user = await db.getUser({
-            openid: data.helper
-        })
-        ctx.body = await db.updateTask({_id: id}, {helper: user})
+        if (data.helper ) {
+            data.helper = await db.getUser({
+                openid: data.helper
+            })
+        }
+        ctx.body = await db.updateTask({_id: id}, data)
     })
 }

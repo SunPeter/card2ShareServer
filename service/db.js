@@ -97,7 +97,7 @@ exports.getUser = async (params) => {
      delete params.field
      delete params.limit
 
-     return await Task.find(params).limit(limit).sort({[field]: order}).populate("publisher origin destination")
+     return await Task.find(params).limit(limit).sort({[field]: order})
  }
 
  exports.getNearByTask = async (params) => {

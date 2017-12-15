@@ -47,6 +47,11 @@ var TaskSchema = new Schema({
     location: {
         type: Array,
         required: true
+    },
+    status: {
+        type: Number,  // 0.待接单 1.已接单 2.帮助人终止 3.发布人终止 4.任务过期 5.完成 9.异常
+        required: true,
+        default: 0
     }
 });
 
@@ -58,7 +63,7 @@ TaskSchema.statics.findByGPS = async function (query) {
         near: point,
         spherical: true,
         distanceField: 'distance',
-        maxDistance: query.maxDistance || 30*1000,
+        maxDistance: query.maxDistance || 3*1000,
         spherical : true
     })
     // .then(docs => {

@@ -1,15 +1,19 @@
 {
-  "name": "card2shareServer",
+  "name": "bang",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "a http api server",
+  "main": "server.js",
   "scripts": {
     "dev": "NODE_ENV=dev supervisor server",
     "start": "./node_modules/.bin/pm2 startOrGracefulReload pm2.json"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "nodejs",
+    "koa",
+    "mongodb"
+  ],
+  "author": "petersun",
+  "license": "MIT",
   "dependencies": {
     "config": "^1.28.1",
     "koa": "^2.2.0",
